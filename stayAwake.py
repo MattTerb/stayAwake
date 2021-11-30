@@ -1,33 +1,26 @@
 # Move mouse after a specified period of inactivity to prevent computer from falling asleep
 
-import pyautogui, time, rumps, logging
+import pyautogui, time, rumps, logging, sys
 
+from PyQt5.QtWidgets import (
+    QApplication, QDialog
+)
+
+from stayAwake_ui import Ui_Dialog
  
  
-class stayAwakeApp(object):
+class Window(QDialog, Ui_Dialog):
 
     logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(message)s', level=logging.DEBUG)
 
-    def __init__(self):
-        self.app = rumps.App("StayAwake","🐭")
-        self.interval = 5 # seconds
-        self.running = True
-        self.fiveSecBtn = rumps.MenuItem(title="5 seconds",callback=lambda _: self.setInterval(_, 5)) 
-        self.thirtyeSecBtn = rumps.MenuItem(title="30 seconds",callback=lambda _: self.setInterval(_, 30)) 
-        self.oneMinBtn = rumps.MenuItem(title="1 minute",callback=lambda _: self.setInterval(_, 1*60)) 
-        self.fiveMinBtn = rumps.MenuItem(title="5 minutes",callback=lambda _: self.setInterval(_, 5*60)) 
-        self.tenMinBtn = rumps.MenuItem(title="10 minutes",callback=lambda _: self.setInterval(_, 10*60)) 
-        self.fifteenMinBtn = rumps.MenuItem(title="15 minutes",callback=lambda _: self.setInterval(_,15*60)) 
-        self.startBtn = rumps.MenuItem(title="Start",callback=lambda _: self.checkActivity(_, self.interval))
-        self.stopBtn = rumps.MenuItem(title="Stop",callback=lambda _: self.stop)
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+       # self.connectSignalsSlots()
 
-        self.app.menu = [self.fiveSecBtn, self.thirtyeSecBtn, self.oneMinBtn, self.fiveMinBtn, self.tenMinBtn, self.fifteenMinBtn, self.startBtn, self.stopBtn]
-
-        logging.debug('App Initialised')
-
-    def run(self):
-        self.app.run()
-
+    
+    #def connectSignalsSlots(self):
+          #  self.action_Exit.triggered.connect(self.setInterval)
 
 
     def setInterval(self,sender,interval):
@@ -83,6 +76,8 @@ class stayAwakeApp(object):
         logging.debug('Stop')
 
 
-if __name__ == '__main__':
-    app = stayAwakeApp()
-    app.run()
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    win = Window()
+    win.show()
+    sys.exit(app.exec())
