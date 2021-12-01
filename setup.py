@@ -9,7 +9,7 @@ from setuptools import setup
 
 APP = ['stayAwake.py']
 DATA_FILES = []
-OPTIONS = {}
+OPTIONS = {'iconfile': 'mouseIcon.icns'}
 
 setup(
     app=APP,
