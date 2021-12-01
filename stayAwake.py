@@ -14,6 +14,7 @@ class Window(QDialog, Ui_Dialog):
 
 
     logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(message)s', level=logging.DEBUG)
+    logging.disable(logging.CRITICAL)
 
     def __init__(self, parent=None):
         super().__init__(parent)
