@@ -1,19 +1,30 @@
 # Move mouse after a specified period of inactivity to prevent computer from falling asleep
 
 from PyQt5 import QtGui
-import pyautogui, time, rumps, logging, sys
+import pyautogui
+import time
+import logging
+import sys
+import os
 
 from PyQt5.QtWidgets import (
     QApplication, QDialog
 )
 
 from stayAwake_ui import Ui_Dialog
- 
- 
+
+
 class Window(QDialog, Ui_Dialog):
 
 
-    logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(message)s', level=logging.DEBUG)
+    if getattr(sys, 'frozen', False):
+        Current_Path = os.path.dirname(sys.executable)
+    else:
+        Current_Path = str(os.path.dirname(__file__))
+
+    logging.basicConfig(filename=os.path.join(Current_Path, 'app.log'), filemode='w',
+                        format='%(asctime)s - %(message)s', level=logging.DEBUG)
+    logging.disable(logging.CRITICAL)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -27,9 +38,6 @@ class Window(QDialog, Ui_Dialog):
         self.running = False
         self.minInterval = 0
         self.secInterval = 0
-        
-
-
 
     def setMinInterval(self):
         self.minInterval = self.minBox.value()
@@ -39,26 +47,25 @@ class Window(QDialog, Ui_Dialog):
         self.secInterval = self.secBox.value()
         logging.debug(f'{str(self.interval)} interval set')
 
-
     def buttonPush(self):
 
         if self.btnState == False:
             self.btnState = True
-            self.statusLabel.setStyleSheet("background-color: rgba(3, 201, 169, 1);")
+            self.statusLabel.setStyleSheet(
+                "background-color: rgba(3, 201, 169, 1);")
             self.statusLabel.setText("ON")
             self.startStopBtn.setText("Stop")
             self.checkActivity()
-            print('Track on')
+           # print('Track on')
         else:
             self.btnState = False
-            self.statusLabel.setStyleSheet("background-color: rgba(249, 14, 49, 153);")
+            self.statusLabel.setStyleSheet(
+                "background-color: rgba(249, 14, 49, 153);")
             self.statusLabel.setText("OFF")
             self.startStopBtn.setText("Start")
-            print('Track off')
+           # print('Track off')
 
             self.stop()
-
-
 
     # TODO: Check if no activity after specified period
 
@@ -68,45 +75,40 @@ class Window(QDialog, Ui_Dialog):
         start = time.time()
         self.running = True
 
-
         while self.running:
 
-
             QtGui.QGuiApplication.processEvents()
-            if self.running == False:
-                break
 
             position1 = pyautogui.position()
-            print('Pos1 = ' + str(position1))
+           # print('Pos1 = ' + str(position1))
             logging.debug(f'Pos1 = {str(position1)}')
 
-            #time.sleep(0.5)
-
             position2 = pyautogui.position()
-            print('Pos2 = ' + str(position2))
+           # print('Pos2 = ' + str(position2))
             logging.debug(f'Pos2 = {str(position2)}')
 
-
             if position1 != position2:
-                print('Active')
+             #   print('Active')
                 logging.debug('Active')
                 start = time.time()
             else:
-                print('Inactive')
+             #   print('Inactive')
                 logging.debug('Inactive')
 
                 end = time.time()
                 elapsed = end - start
-                print('Elapsed time: ' + str(elapsed))
+              #  print('Elapsed time: ' + str(elapsed))
                 logging.debug(f'Elapsed time: {str(elapsed)}')
 
                 if elapsed >= self.interval:
-                    print('Move mouse')
+                  #  print('Move mouse')
                     logging.debug('Move mouse')
-                    pyautogui.moveRel(100,0, duration=1)
-                    pyautogui.moveRel(-100,0, duration=1)
+                    pyautogui.move(100, 0, duration=1)
+                    pyautogui.move(-100, 0, duration=1)
                     start = time.time()
 
+            if self.running == False:
+                break
 
     def stop(self):
         self.running = False
