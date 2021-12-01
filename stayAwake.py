@@ -74,8 +74,7 @@ class Window(QDialog, Ui_Dialog):
 
 
             QtGui.QGuiApplication.processEvents()
-            if self.running == False:
-                break
+
 
             position1 = pyautogui.position()
             print('Pos1 = ' + str(position1))
@@ -104,9 +103,12 @@ class Window(QDialog, Ui_Dialog):
                 if elapsed >= self.interval:
                     print('Move mouse')
                     logging.debug('Move mouse')
-                    pyautogui.moveRel(100,0, duration=1)
-                    pyautogui.moveRel(-100,0, duration=1)
+                    pyautogui.move(100,0, duration=1)
+                    pyautogui.move(-100,0, duration=1)
                     start = time.time()
+
+            if self.running == False:
+                break
 
 
     def stop(self):
