@@ -24,7 +24,7 @@ class Window(QDialog, Ui_Dialog):
 
     logging.basicConfig(filename=os.path.join(Current_Path, 'app.log'), filemode='w',
                         format='%(asctime)s - %(message)s', level=logging.DEBUG)
-    logging.disable(logging.CRITICAL)
+    #logging.disable(logging.CRITICAL)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -41,11 +41,11 @@ class Window(QDialog, Ui_Dialog):
 
     def setMinInterval(self):
         self.minInterval = self.minBox.value()
-        logging.debug(f'{str(self.interval)} interval set')
+        logging.debug(f'{str(self.minInterval)} interval set')
 
     def setSecInterval(self):
         self.secInterval = self.secBox.value()
-        logging.debug(f'{str(self.interval)} interval set')
+        logging.debug(f'{str(self.secInterval)} interval set')
 
     def buttonPush(self):
 
@@ -83,6 +83,7 @@ class Window(QDialog, Ui_Dialog):
            # print('Pos1 = ' + str(position1))
             logging.debug(f'Pos1 = {str(position1)}')
 
+            time.sleep(0.05)
             position2 = pyautogui.position()
            # print('Pos2 = ' + str(position2))
             logging.debug(f'Pos2 = {str(position2)}')
