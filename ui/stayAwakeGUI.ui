@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>328</width>
-    <height>289</height>
+    <width>327</width>
+    <height>403</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -15,6 +15,18 @@
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>327</width>
+    <height>403</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>327</width>
+    <height>403</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>StayAwake</string>
@@ -30,10 +42,10 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>298</width>
-     <height>249</height>
+     <x>21</x>
+     <y>21</y>
+     <width>291</width>
+     <height>381</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -100,16 +112,25 @@
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>20</height>
+        <height>10</height>
        </size>
       </property>
      </spacer>
     </item>
     <item>
      <widget class="QLabel" name="label">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
        <string>Move mouse every:</string>
       </property>
@@ -123,6 +144,9 @@
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
@@ -134,10 +158,20 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QSpinBox" name="minBox"/>
+       <widget class="QSpinBox" name="minBox">
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="minLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>minutes</string>
         </property>
@@ -149,7 +183,7 @@
       <item>
        <widget class="QLabel" name="label_2">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -163,10 +197,23 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="secBox"/>
+       <widget class="QSpinBox" name="secBox">
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="suffix">
+         <string/>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="secLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>seconds</string>
         </property>
@@ -182,10 +229,69 @@
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>5</height>
+        <height>12</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>80</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="keyboardBox">
+        <property name="text">
+         <string>Track keyboard</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>12</height>
        </size>
       </property>
      </spacer>
@@ -202,7 +308,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>80</width>
+          <width>75</width>
           <height>20</height>
          </size>
         </property>
@@ -210,6 +316,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="startStopBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>Start</string>
         </property>
@@ -225,7 +337,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>80</width>
+          <width>85</width>
           <height>20</height>
          </size>
         </property>
@@ -238,27 +350,46 @@
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>5</height>
+        <height>12</height>
        </size>
       </property>
      </spacer>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
+      <item>
+       <spacer name="horizontalSpacer_8">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>32</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
       <item>
        <widget class="QLabel" name="trackingLabel">
         <property name="text">
-         <string>Mouse Tracking:</string>
+         <string>Tracking:</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="statusLabel">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -266,7 +397,7 @@
         <property name="maximumSize">
          <size>
           <width>100</width>
-          <height>50</height>
+          <height>20</height>
          </size>
         </property>
         <property name="font">
@@ -298,7 +429,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>105</width>
+          <width>107</width>
           <height>20</height>
          </size>
         </property>
