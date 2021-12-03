@@ -7,12 +7,13 @@ import logging
 import sys
 import os
 
+from pynput import keyboard
+
 from PyQt5.QtWidgets import (
     QApplication, QDialog
 )
 
 from stayAwake_ui import Ui_Dialog
-
 
 class Window(QDialog, Ui_Dialog):
 
@@ -24,7 +25,10 @@ class Window(QDialog, Ui_Dialog):
 
     logging.basicConfig(filename=os.path.join(Current_Path, 'app.log'), filemode='w',
                         format='%(asctime)s - %(message)s', level=logging.DEBUG)
-    #logging.disable(logging.CRITICAL)
+    logging.disable(logging.CRITICAL)
+
+    keyPress = False
+
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -46,6 +50,11 @@ class Window(QDialog, Ui_Dialog):
     def setSecInterval(self):
         self.secInterval = self.secBox.value()
         logging.debug(f'{str(self.secInterval)} interval set')
+
+    def on_press(self):
+        global keyPress
+        keyPress = True
+        #print('Key press' + str(keyPress)) 
 
     def buttonPush(self):
 
@@ -75,6 +84,9 @@ class Window(QDialog, Ui_Dialog):
         start = time.time()
         self.running = True
 
+        global keyPress
+
+        keyPress = False
         while self.running:
 
             QtGui.QGuiApplication.processEvents()
@@ -88,11 +100,13 @@ class Window(QDialog, Ui_Dialog):
            # print('Pos2 = ' + str(position2))
             logging.debug(f'Pos2 = {str(position2)}')
 
-            if position1 != position2:
-             #   print('Active')
+            if position1 != position2 or keyPress :
+                #print('Active: ' + str(keyPress))
                 logging.debug('Active')
+                keyPress = False
                 start = time.time()
             else:
+
              #   print('Inactive')
                 logging.debug('Inactive')
 
@@ -115,6 +129,8 @@ class Window(QDialog, Ui_Dialog):
         self.running = False
         logging.debug('Stop')
 
+    listener = keyboard.Listener(on_press=on_press)
+    listener.start()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
