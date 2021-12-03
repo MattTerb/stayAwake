@@ -61,7 +61,7 @@ class Window(QDialog, Ui_Dialog):
 
         global keyPress
         keyPress = True
-        print('Key press ' + str(keyPress)) 
+        #print('Key press ' + str(keyPress)) 
         logging.debug(f'Key press: {str(keyPress)}')
 
     keyboardListener = keyboard.Listener(on_press=on_press)
@@ -69,12 +69,12 @@ class Window(QDialog, Ui_Dialog):
     keyboardListener.wait()
 
     def on_scroll(x, y, dx, dy):
-        print('Mouse scrolled')
+        #print('Mouse scrolled')
         global mouseScroll
         mouseScroll = True
 
     def on_click(x,y,button,pressed):
-        print('Mouse clicked')
+        #print('Mouse clicked')
         global mouseClick
         mouseClick = True
 
@@ -142,7 +142,7 @@ class Window(QDialog, Ui_Dialog):
 
             if position1 != position2 or (keyPress and self.keyboardState) or mouseScroll or mouseClick:
 
-                print('Active: ' + str(mouseScroll))
+                #print('Active: ' + str(mouseScroll))
                 logging.debug('Active')
                 keyPress = False
                 mouseScroll = False
