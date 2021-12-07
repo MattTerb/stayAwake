@@ -7,7 +7,7 @@ import logging
 import sys
 import os
 
-from pynput import keyboard, mouse
+from pynput import mouse
 
 from PyQt5.QtWidgets import (
     QApplication, QDialog
@@ -27,7 +27,6 @@ class Window(QDialog, Ui_Dialog):
                         format='%(asctime)s - %(message)s', level=logging.DEBUG)
     logging.disable(logging.CRITICAL)
 
-    keyPress = False
     mouseScroll = False
     mouseClick = False
     mouseMove = False
@@ -39,14 +38,12 @@ class Window(QDialog, Ui_Dialog):
         self.minBox.valueChanged.connect(self.setMinInterval)
         self.secBox.valueChanged.connect(self.setSecInterval)
         self.startStopBtn.clicked.connect(self.buttonPush)
-        self.keyboardBox.stateChanged.connect(self.trackKeyboard)
 
         self.btnState = False
         self.interval = 5
         self.running = False
         self.minInterval = 0
         self.secInterval = 0
-        self.keyboardState = False
                 
 
     def setMinInterval(self):
@@ -56,17 +53,6 @@ class Window(QDialog, Ui_Dialog):
     def setSecInterval(self):
         self.secInterval = self.secBox.value()
         logging.debug(f'{str(self.secInterval)} interval set')
-
-    def on_press(key):
-
-        global keyPress
-        keyPress = True
-        #print('Key press ' + str(keyPress)) 
-        logging.debug(f'Key press: {str(keyPress)}')
-
-    keyboardListener = keyboard.Listener(on_press=on_press)
-    keyboardListener.start()
-    keyboardListener.wait()
 
     def on_scroll(x, y, dx, dy):
         #print('Mouse scrolled')
@@ -106,11 +92,6 @@ class Window(QDialog, Ui_Dialog):
 
             self.stop()
 
-    def trackKeyboard(self):
-        self.keyboardState = self.keyboardBox.isChecked()
-        #print('Track keyboard: ' + str(self.keyboardState))
-        logging.debug(f'Track keyboard: {str(self.keyboardState)}')
-
     # TODO: Check if no activity after specified period
 
     def checkActivity(self):
@@ -119,11 +100,9 @@ class Window(QDialog, Ui_Dialog):
         start = time.time()
         self.running = True
 
-        global keyPress
         global mouseScroll
         global mouseClick
 
-        keyPress = False
         mouseScroll = False
         mouseClick = False
 
@@ -140,11 +119,10 @@ class Window(QDialog, Ui_Dialog):
            # print('Pos2 = ' + str(position2))
             logging.debug(f'Pos2 = {str(position2)}')
 
-            if position1 != position2 or (keyPress and self.keyboardState) or mouseScroll or mouseClick:
+            if position1 != position2 or mouseScroll or mouseClick:
 
                 #print('Active: ' + str(mouseScroll))
                 logging.debug('Active')
-                keyPress = False
                 mouseScroll = False
                 mouseClick = False
                 start = time.time()
